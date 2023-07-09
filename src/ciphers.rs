@@ -1,4 +1,9 @@
+// Encryption Module
 pub mod encrypt {
+    /// Encryption function for the Caesar cipher. 
+    /// 
+    /// NB: Only for educational purposes.
+    /// Do not use for any system where data safety is important.
     pub fn caesar(text: String, shift: u8) -> String {
         let mut cipher = String::from("");
         for c in text.chars() {

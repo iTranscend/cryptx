@@ -1,5 +1,5 @@
 [package]
-name = "encryptx"
+name = "cryptx"
 version = "0.1.0"
 edition = "2021"
 authors = ["Femi Bankole <llordbanks500@gmail.com>"]

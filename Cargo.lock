@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "encryptx"
+name = "cryptx"
 version = "0.1.0"

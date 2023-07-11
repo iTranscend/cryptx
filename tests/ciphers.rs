@@ -6,6 +6,10 @@ fn ceasar_encrypt() {
 
 #[test]
 fn ceasar_decrypt() {
-    let result = cryptx::ciphers::decrypt::caesar("kvJxlebc2".to_string(), 4);
-    assert_eq!(result, "grFthaxy.".to_string());
+#[test]
+fn polyalphabetic_encrypt() {
+    let result =
+        cryptx::ciphers::encrypt::polyalphabetic("Theendisalmosthere".into(), "stand");
+    assert_eq!(result, "Mbfsrwctopfithlxlf")
+}
 }

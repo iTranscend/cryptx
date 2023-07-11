@@ -1,5 +1,7 @@
 // Encryption Module
 pub mod encrypt {
+    use crate::types::LoopingIter;
+    
     /// Encryption function for the Caesar cipher. 
     /// 
     /// NB: Only for educational purposes.
@@ -7,6 +9,40 @@ pub mod encrypt {
     pub fn caesar(text: String, shift: u8) -> String {
         let mut cipher = String::from("");
         for c in text.chars() {
+    /// Encryption function for the Polyalphabetic cipher
+    pub fn polyalphabetic(plaintext: String, key: &str) -> String {
+        let mut cipher = String::from("");
+
+        if !contains_only_alphabets(key) {
+            // Return err OnlyAlphabetsAllowed
+        }
+
+        if key.len() <= 0 {
+            // Return err invalid key length
+        }
+
+        let mut key_digits: Vec<u8> = vec![];
+
+        // Get numeric key representation for shifting
+        for c in key.to_ascii_lowercase().chars() {
+            key_digits.push(c as u8 - 96);
+        }
+
+        // convert key_digits into a looping iterator
+        let mut looping_key_digits = LoopingIter::new(key_digits);
+
+        // iterate over all plaintext chars and shift using key_digits_looping iterator
+        for c in plaintext.chars() {
+            let shift = *looping_key_digits.next().unwrap();
+            let shifted_ascii_number = shift_character(c, shift);
+            cipher.push(char::from(shifted_ascii_number));
+        }
+        cipher
+    }
+
+    fn contains_only_alphabets(string: &str) -> bool {
+        string.chars().all(|c| c.is_alphabetic())
+    }
             let shifted_ascii_number: u8;
             let char_ascii = c as u8;
             if c.is_lowercase() {

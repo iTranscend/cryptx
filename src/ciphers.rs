@@ -2,13 +2,19 @@
 pub mod encrypt {
     use crate::types::LoopingIter;
     
-    /// Encryption function for the Caesar cipher. 
-    /// 
+    /// Encryption function for the Caesar cipher.
+    ///
     /// NB: Only for educational purposes.
     /// Do not use for any system where data safety is important.
     pub fn caesar(text: String, shift: u8) -> String {
         let mut cipher = String::from("");
         for c in text.chars() {
+            let shifted_ascii_number = shift_character(c, shift);
+            cipher.push(char::from(shifted_ascii_number));
+        }
+        cipher
+    }
+
     /// Encryption function for the Polyalphabetic cipher
     pub fn polyalphabetic(plaintext: String, key: &str) -> String {
         let mut cipher = String::from("");
@@ -43,18 +49,18 @@ pub mod encrypt {
     fn contains_only_alphabets(string: &str) -> bool {
         string.chars().all(|c| c.is_alphabetic())
     }
-            let shifted_ascii_number: u8;
-            let char_ascii = c as u8;
-            if c.is_lowercase() {
-                shifted_ascii_number = (char_ascii + shift - 97) % 26 + 97;
-            } else if c.is_uppercase() {
-                shifted_ascii_number = (char_ascii + shift - 65) % 26 + 65;
-            } else {
-                shifted_ascii_number = char_ascii + shift;
-            }
-            cipher.push(char::from(shifted_ascii_number));
+
+    fn shift_character(c: char, shift: u8) -> u8 {
+        let shifted_ascii_number: u8;
+        let char_ascii = c as u8;
+        if c.is_lowercase() {
+            shifted_ascii_number = (char_ascii + shift - 97) % 26 + 97;
+        } else if c.is_uppercase() {
+            shifted_ascii_number = (char_ascii + shift - 65) % 26 + 65;
+        } else {
+            shifted_ascii_number = char_ascii + shift;
         }
-        cipher
+        shifted_ascii_number
     }
 }
 

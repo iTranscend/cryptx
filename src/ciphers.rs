@@ -1,4 +1,4 @@
-// Encryption Module
+/// Encryption Module
 pub mod encrypt {
     use crate::types::LoopingIter;
     
@@ -64,7 +64,7 @@ pub mod encrypt {
     }
 }
 
-/// Decryption functions 
+/// Decryption functions
 pub mod decrypt {
     /// Decrypter for a Caesar cipher.
     pub fn caesar(cipher: String, shift: i8) -> String {

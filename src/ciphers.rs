@@ -1,30 +1,31 @@
 /// Encryption Module
 pub mod encrypt {
+    use crate::errors::CipherError::{self, InvalidKeyLength, OnlyAlphabetsAllowed};
     use crate::types::LoopingIter;
-    
+
     /// Encryption function for the Caesar cipher.
     ///
     /// NB: Only for educational purposes.
     /// Do not use for any system where data safety is important.
-    pub fn caesar(text: String, shift: u8) -> String {
+    pub fn caesar(text: String, shift: u8) -> Result<String, CipherError> {
         let mut cipher = String::from("");
         for c in text.chars() {
             let shifted_ascii_number = shift_character(c, shift);
             cipher.push(char::from(shifted_ascii_number));
         }
-        cipher
+        Ok(cipher)
     }
 
     /// Encryption function for the Polyalphabetic cipher
-    pub fn polyalphabetic(plaintext: String, key: &str) -> String {
+    pub fn polyalphabetic(plaintext: String, key: &str) -> Result<String, CipherError> {
         let mut cipher = String::from("");
 
         if !contains_only_alphabets(key) {
-            // Return err OnlyAlphabetsAllowed
+            return Err(OnlyAlphabetsAllowed);
         }
 
         if key.len() <= 0 {
-            // Return err invalid key length
+            return Err(InvalidKeyLength);
         }
 
         let mut key_digits: Vec<u8> = vec![];
@@ -43,7 +44,7 @@ pub mod encrypt {
             let shifted_ascii_number = shift_character(c, shift);
             cipher.push(char::from(shifted_ascii_number));
         }
-        cipher
+        Ok(cipher)
     }
 
     fn contains_only_alphabets(string: &str) -> bool {
@@ -66,8 +67,10 @@ pub mod encrypt {
 
 /// Decryption functions
 pub mod decrypt {
+    use crate::errors::CipherError;
+
     /// Decrypter for a Caesar cipher.
-    pub fn caesar(cipher: String, shift: i8) -> String {
+    pub fn caesar(cipher: String, shift: i8) -> Result<String, CipherError> {
         let mut plaintext = String::from("");
         for c in cipher.chars() {
             let shifted_ascii_number: i8;
@@ -91,6 +94,6 @@ pub mod decrypt {
             }
             plaintext.push(char::from(shifted_ascii_number as u8));
         }
-        plaintext
+        Ok(plaintext)
     }
 }

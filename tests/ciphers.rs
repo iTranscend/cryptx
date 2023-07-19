@@ -17,4 +17,9 @@ fn polyalphabetic_encrypt() {
     let result = cryptx::ciphers::encrypt::polyalphabetic("Theendisalmosthere".into(), "stand");
     assert_eq!(result.unwrap(), "Mbfsrwctopfithlxlf");
 }
+
+#[test]
+fn polyalphabetic_encrypt_invalid_key_length() {
+    let result = cryptx::ciphers::encrypt::polyalphabetic("Theendisalmosthere".into(), "");
+    assert_eq!(result, Err(CipherError::InvalidKeyLength));
 }

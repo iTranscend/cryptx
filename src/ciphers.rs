@@ -24,7 +24,7 @@ pub mod encrypt {
             return Err(OnlyAlphabetsAllowed);
         }
 
-        if key.len() <= 0 {
+        if key.is_empty() {
             return Err(InvalidKeyLength);
         }
 

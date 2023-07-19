@@ -5,10 +5,7 @@ pub struct LoopingIter<T> {
 
 impl<T> LoopingIter<T> {
     pub fn new(buffer: Vec<T>) -> Self {
-        Self { 
-            index: 0,
-            buffer: buffer,
-        }
+        Self { index: 0, buffer }
     }
 
     pub fn next(&mut self) -> Option<&T> {

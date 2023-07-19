@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum CipherError {
     /// All characters in `Key` must be from the english alphabet
     OnlyAlphabetsAllowed,

@@ -70,25 +70,15 @@ pub mod decrypt {
     use crate::errors::CipherError;
 
     /// Decrypter for a Caesar cipher.
-    pub fn caesar(cipher: String, shift: i8) -> Result<String, CipherError> {
+    pub fn caesar(cipher: String, shift: u8) -> Result<String, CipherError> {
         let mut plaintext = String::from("");
         for c in cipher.chars() {
-            let shifted_ascii_number: i8;
-            let char_ascii = c as i8;
+            let shifted_ascii_number: u8;
+            let char_ascii = c as u8;
             if c.is_lowercase() {
-                let direction = (char_ascii - shift - 97) % 26;
-                if direction.is_negative() {
-                    shifted_ascii_number = 122 + 1 + direction;
-                } else {
-                    shifted_ascii_number = 97 + direction;
-                }
+                shifted_ascii_number = (26 - shift + char_ascii - 97) % 26 + 97;
             } else if c.is_uppercase() {
-                let direction = (char_ascii - shift - 65) % 26;
-                if direction.is_negative() {
-                    shifted_ascii_number = 90 + 1 + direction;
-                } else {
-                    shifted_ascii_number = 65 + direction;
-                }
+                shifted_ascii_number = (26 - shift + char_ascii - 65) % 26 + 65;
             } else {
                 shifted_ascii_number = char_ascii - shift;
             }

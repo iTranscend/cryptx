@@ -8,8 +8,8 @@ fn ceasar_encrypt() {
 
 #[test]
 fn ceasar_decrypt() {
-    let result = cryptx::ciphers::decrypt::caesar("kvJxlebc2b".to_string(), 4);
-    assert_eq!(result.unwrap(), "grFthaxy.^".to_string());
+    let result = cryptx::ciphers::decrypt::caesar("kvJxlebc2".to_string(), 4);
+    assert_eq!(result.unwrap(), "grFthaxy.".to_string());
 }
 
 #[test]

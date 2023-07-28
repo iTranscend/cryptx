@@ -55,15 +55,11 @@ pub mod decrypt {
     pub fn caesar(cipher: String, shift: u8) -> Result<String, CipherError> {
         let mut plaintext = String::from("");
         for c in cipher.chars() {
-            let shifted_ascii_number: u8;
-            let char_ascii = c as u8;
-            if c.is_lowercase() {
-                shifted_ascii_number = (26 - shift + char_ascii - 97) % 26 + 97;
-            } else if c.is_uppercase() {
-                shifted_ascii_number = (26 - shift + char_ascii - 65) % 26 + 65;
-            } else {
-                shifted_ascii_number = char_ascii - shift;
-            }
+            let shifted_ascii_number = shift_character_backward(c, &shift);
+            plaintext.push(char::from(shifted_ascii_number as u8));
+        }
+        Ok(plaintext)
+    }
             plaintext.push(char::from(shifted_ascii_number as u8));
         }
         Ok(plaintext)

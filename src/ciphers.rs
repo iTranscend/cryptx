@@ -10,7 +10,7 @@ pub mod encrypt {
     pub fn caesar(text: String, shift: u8) -> Result<String, CipherError> {
         let mut cipher = String::from("");
         for c in text.chars() {
-            let shifted_ascii_number = shift_character(c, shift);
+            let shifted_ascii_number = shift_character_forward(c, shift);
             cipher.push(char::from(shifted_ascii_number));
         }
         Ok(cipher)
@@ -41,7 +41,7 @@ pub mod encrypt {
         // iterate over all plaintext chars and shift using key_digits_looping iterator
         for c in plaintext.chars() {
             let shift = *looping_key_digits.next().unwrap();
-            let shifted_ascii_number = shift_character(c, shift);
+            let shifted_ascii_number = shift_character_forward(c, shift);
             cipher.push(char::from(shifted_ascii_number));
         }
         Ok(cipher)

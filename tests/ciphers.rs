@@ -23,3 +23,9 @@ fn polyalphabetic_encrypt_invalid_key_length() {
     let result = cryptx::ciphers::encrypt::polyalphabetic("Theendisalmosthere".into(), "");
     assert_eq!(result, Err(CipherError::InvalidKeyLength));
 }
+
+#[test]
+fn polyalphabetic_decrypt() {
+    let result = cryptx::ciphers::decrypt::polyalphabetic("Mbfsrwctopfithlxlf".into(), "stand");
+    assert_eq!(result.unwrap(), "Theendisalmosthere");
+}

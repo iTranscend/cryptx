@@ -2,6 +2,9 @@
 pub mod encrypt {
     use crate::errors::CipherError::{self, InvalidKeyLength, OnlyAlphabetsAllowed};
     use crate::types::LoopingIter;
+    use crate::utils::{
+        contains_only_alphabets, shift_character_forward, string_to_aplhabetic_vec,
+    };
 
     /// Encryption function for the Caesar cipher.
     ///
@@ -28,12 +31,8 @@ pub mod encrypt {
             return Err(InvalidKeyLength);
         }
 
-        let mut key_digits: Vec<u8> = vec![];
-
         // Get numeric key representation for shifting
-        for c in key.to_ascii_lowercase().chars() {
-            key_digits.push(c as u8 - 96);
-        }
+        let key_digits: Vec<u8> = string_to_aplhabetic_vec(key);
 
         // convert key_digits into a looping iterator
         let mut looping_key_digits = LoopingIter::new(key_digits);
@@ -45,23 +44,6 @@ pub mod encrypt {
             cipher.push(char::from(shifted_ascii_number));
         }
         Ok(cipher)
-    }
-
-    fn contains_only_alphabets(string: &str) -> bool {
-        string.chars().all(|c| c.is_alphabetic())
-    }
-
-    fn shift_character(c: char, shift: u8) -> u8 {
-        let shifted_ascii_number: u8;
-        let char_ascii = c as u8;
-        if c.is_lowercase() {
-            shifted_ascii_number = (char_ascii + shift - 97) % 26 + 97;
-        } else if c.is_uppercase() {
-            shifted_ascii_number = (char_ascii + shift - 65) % 26 + 65;
-        } else {
-            shifted_ascii_number = char_ascii + shift;
-        }
-        shifted_ascii_number
     }
 }
 

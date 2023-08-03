@@ -35,3 +35,9 @@ fn one_time_pad_encrypt() {
     let result = cryptx::ciphers::encrypt::one_time_pad("hello", "world");
     assert_eq!(result.unwrap(), "\u{1f}\n\u{1e}\0\u{b}");
 }
+
+#[test]
+fn one_time_pad_decrypt() {
+    let result = cryptx::ciphers::decrypt::one_time_pad("\u{1f}\n\u{1e}\0\u{b}", "world");
+    assert_eq!(result.unwrap(), "hello");
+}

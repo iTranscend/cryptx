@@ -1,9 +1,12 @@
 /// Encryption Module
 pub mod encrypt {
-    use crate::errors::CipherError::{self, InvalidKeyLength, OnlyAlphabetsAllowed};
+    use crate::errors::CipherError::{
+        self, InvalidKeyLength, OnlyAlphabetsAllowed,
+    };
     use crate::types::LoopingIter;
     use crate::utils::{
-        contains_only_alphabets, shift_character_forward, string_to_aplhabetic_vec,
+         contains_only_alphabets, shift_character_forward,
+        string_to_aplhabetic_vec, xor_strings,
     };
 
     /// Encryption function for the Caesar cipher.
@@ -44,6 +47,19 @@ pub mod encrypt {
             cipher.push(char::from(shifted_ascii_number));
         }
         Ok(cipher)
+    }
+
+    /// Encryption function for the one-time-pad cipher
+    ///
+    /// Both the key and the plaintext of a one-time-pad must be the same length
+    pub fn one_time_pad(plaintext: &str, key: &str) -> Result<String, CipherError> {
+        match xor_strings(plaintext, key) {
+            Ok(cipher) => {
+                println!("{:#?}", &cipher);
+                Ok(cipher)
+            }
+            Err(e) => Err(e),
+        }
     }
 }
 

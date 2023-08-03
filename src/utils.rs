@@ -1,3 +1,5 @@
+use crate::errors::CipherError;
+
 /// Checks if a string contains only alphabetic characters
 pub fn contains_only_alphabets(string: &str) -> bool {
     string.chars().all(|c| c.is_alphabetic())
@@ -38,4 +40,27 @@ pub fn shift_character_backward(c: char, shift: &u8) -> u8 {
         shifted_ascii_number = char_ascii - shift;
     }
     shifted_ascii_number
+}
+
+/// Checks if two strings are the same length
+pub fn are_same_length(a: &str, b: &str) -> bool {
+    a.len() == b.len()
+}
+
+/// XOR two strings together
+/// Returns the string representation of the operation
+pub fn xor_strings(a: &str, b: &str) -> Result<String, CipherError> {
+    // ensure inputs are the same length
+    if !are_same_length(a, b) {
+        return Err(CipherError::MustBeSameLength);
+    }
+
+    let result = a
+        .as_bytes()
+        .iter()
+        .zip(b.as_bytes().iter())
+        .map(|(a, b)| a ^ b)
+        .collect();
+
+    String::from_utf8(result).map_err(|_| CipherError::BytesToStringError)
 }

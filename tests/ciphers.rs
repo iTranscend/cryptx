@@ -29,3 +29,9 @@ fn polyalphabetic_decrypt() {
     let result = cryptx::ciphers::decrypt::polyalphabetic("Mbfsrwctopfithlxlf".into(), "stand");
     assert_eq!(result.unwrap(), "Theendisalmosthere");
 }
+
+#[test]
+fn one_time_pad_encrypt() {
+    let result = cryptx::ciphers::encrypt::one_time_pad("hello", "world");
+    assert_eq!(result.unwrap(), "\u{1f}\n\u{1e}\0\u{b}");
+}

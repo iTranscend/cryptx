@@ -68,7 +68,7 @@ pub mod decrypt {
     use crate::errors::CipherError::{self, InvalidKeyLength, OnlyAlphabetsAllowed};
     use crate::types::LoopingIter;
     use crate::utils::{
-        contains_only_alphabets, shift_character_backward, string_to_aplhabetic_vec,
+        contains_only_alphabets, shift_character_backward, string_to_aplhabetic_vec, xor_strings,
     };
 
     /// Decrypter for a Caesar cipher.
@@ -107,5 +107,18 @@ pub mod decrypt {
         }
 
         Ok(plaintext)
+    }
+
+    /// Decryption function for the one-time-pad cipher
+    ///
+    /// Both the key and the plaintext of a one-time-pad must be the same length
+    pub fn one_time_pad(cipher: &str, key: &str) -> Result<String, CipherError> {
+        match xor_strings(cipher, key) {
+            Ok(plaintext) => {
+                println!("{:#?}", &plaintext);
+                Ok(plaintext)
+            }
+            Err(e) => Err(e),
+        }
     }
 }

@@ -1,12 +1,9 @@
 /// Encryption Module
 pub mod encrypt {
-    use crate::errors::CipherError::{
-        self, InvalidKeyLength, OnlyAlphabetsAllowed,
-    };
+    use crate::errors::CipherError::{self, InvalidKeyLength, OnlyAlphabetsAllowed};
     use crate::types::LoopingIter;
     use crate::utils::{
-         contains_only_alphabets, shift_character_forward,
-        string_to_aplhabetic_vec, xor_strings,
+        contains_only_alphabets, shift_character_forward, string_to_aplhabetic_vec, xor_strings,
     };
 
     /// Encryption function for the Caesar cipher.

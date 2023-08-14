@@ -7,5 +7,5 @@ pub enum CipherError {
     /// Inputs must be the same length
     MustBeSameLength,
     /// Bytes to string conversion error
-    BytesToStringError
+    BytesToStringError,
 }
